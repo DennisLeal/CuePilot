@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>CuePilot Overlay</title>
+    <style>
+        body { 
+            margin: 0; padding: 12px; 
+            background: rgba(18, 18, 18, 0.88); 
+            color: #ffffff; 
+            font-family: system-ui, -apple-system, sans-serif; 
+            border-radius: 8px;
+            border: 1px solid rgba(187, 134, 252, 0.5);
+            box-shadow: 0 4px 20px rgba(0,0,0,0.6);
+            backdrop-filter: blur(6px);
+            overflow: hidden;
+        }
+        h4 { margin: 0 0 6px 0; color: #bb86fc; font-size: 13px; text-transform: uppercase; letter-spacing: 0.5px; }
+        #promptText { font-size: 14px; line-height: 1.45; white-space: pre-line; }
+    </style>
+</head>
+<body>
+    <h4 id="promptTitle">CuePilot Teleprompter</h4>
+    <div id="promptText">Waiting for interview input... Maintain direct eye contact with the camera.</div>
+    <script>
+        const { ipcRenderer } = require('electron');
+        ipcRenderer.on('display-prompt', (event, data) => {
+            document.getElementById('promptTitle').innerText = data.title;
+            document.getElementById('promptText').innerText = data.text;
+        });
+    </script>
+</body>
+</html>
